@@ -106,3 +106,6 @@ venv.bak/
 # JupyterNotebook
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
+
+# Config
+config.ini

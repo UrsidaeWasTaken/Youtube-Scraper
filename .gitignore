@@ -102,3 +102,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# JupyterNotebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*

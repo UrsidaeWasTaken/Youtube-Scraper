@@ -109,6 +109,9 @@ venv.bak/
 
 # Config
 config.ini
+<<<<<<< HEAD
 
 # CSV
 videos_data.csv
+=======
+>>>>>>> b1ca15c899c0ddfd0d1de3e1b93d710e605ef776

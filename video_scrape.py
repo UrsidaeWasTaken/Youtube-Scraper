@@ -11,6 +11,7 @@ config.read('config.ini')
 API_KEY = config['client']['api_key']
 VIDEO_INFO_URL = config['base_url']['video_info']
 SEARCH_QUERY_URL = config['base_url']['search_query']
+CSV_FILE = config['file']['csv']
 
 # Stores video information in csv
 def video_info(video_id, keyword=None):
@@ -19,8 +20,11 @@ def video_info(video_id, keyword=None):
     data = url.json()
 
     # Details of the video
+    keyword = keyword.replace("%23", "#")
+    keyword = keyword.replace("+", " ")
+    keyword = keyword.replace("%2B", "+")
     video_info = data['items'][0]
-    video_published = video_info['snippet']['publishedAt'][:9]
+    video_published = video_info['snippet']['publishedAt'][:10]
     video_channel, video_channel_id = video_info['snippet']['channelTitle'], video_info['snippet']['channelId']
     video_title = video_info['snippet']['title']
     try:
@@ -49,15 +53,16 @@ def video_info(video_id, keyword=None):
     video_views, video_rating, video_likes, video_dislikes, video_comments, views_disabled,
     ratings_disabled, comments_disabled, is_live, keyword]
 
-    with open('videos_data.csv', 'a', encoding="utf-8") as csv_file:
+    with open(CSV_FILE, 'a', encoding="utf-8") as csv_file:
         csv_writer = csv.writer(csv_file)
         csv_writer.writerow(video_data)
 
     return
 
 # Collect top 20 videos with specific keyword in the title
-def collect_keyword_search():
-    keyword = input("Enter keyword to search... ").lower()
+def collect_keyword_search(keyword=None):
+    if not keyword:
+        keyword = input("Enter keyword to search... ").lower()
     keyword = keyword.replace("#", "%23")
     keyword = keyword.replace("+", "%2B")
     keyword = keyword.replace(" ", "+")
@@ -74,5 +79,6 @@ def collect_keyword_search():
             video_info(video_id, keyword)
     return
 
-collect_keyword_search()
-print("CSV has been updated...")
+for keyword in ['Python', 'Javascript', 'Java', 'C++', 'PHP']:
+    collect_keyword_search(keyword)
+    print("CSV has been updated...")

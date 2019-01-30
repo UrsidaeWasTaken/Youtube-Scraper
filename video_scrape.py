@@ -79,6 +79,6 @@ def collect_keyword_search(keyword=None):
             video_info(video_id, keyword)
     return
 
-for keyword in ['Python', 'Javascript', 'Java', 'C++', 'PHP']:
+for keyword in ['python', 'javascript', 'java', 'c++', 'php']:
     collect_keyword_search(keyword)
     print("CSV has been updated...")
